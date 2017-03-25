@@ -24,4 +24,12 @@ router.post("/upload", function (req, res) {
     else res.status(401).send("Wrong signature");
 });
 
+router.get("/download", function(req, res){
+    connection.query("SELECT * FROM data", function(err, rows, fields){
+        if(!err)
+            res.send(rows);
+        else res.status(500).send("Database error");
+    });
+});
+
 module.exports = router;
