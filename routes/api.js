@@ -35,6 +35,8 @@ router.get("/download", function (req, res) {
         query += ";"; //Add closing semicolon
         //Check if there is an "AND" at the end of the query and remove it
         query = query.replace("AND;", ';').replace("WHERE;", ';');
+        //Set a query limit (if present)
+        if(options.limit) query = query.replace(';', util.format("LIMIT %s;", options.limit));
     } catch (ex) {
         res.status(401).send("Bad parameters");
         return;
